@@ -90,31 +90,6 @@ The `output/latam-summary.json` file is generated automatically.
 | `fs.writeFileSync` | Write the JSON file to disk |
 | Arrow functions | All array callbacks |
 
----
-
-## Connection to SuiteScript 2.x
-
-This project intentionally mirrors the pattern of a real NetSuite script:
-
-```
-restcountries API    →  N/https (NetSuite's HTTP module)
-fs.writeFileSync     →  record.save() / record.submitFields()
-JSON.parse/stringify →  same in SuiteScript
-try/catch            →  same pattern + N/log for logging
-```
-
-By Week 4, you'll recognize this exact flow inside a `define(['N/https', 'N/record'], function(...) { ... })`.
-
----
-
-## Week 1 verification checklist
-
-- [ ] I can write `.filter()` on an array of objects without googling the syntax
-- [ ] I understand the difference between `undefined` and `null`
-- [ ] I can read a JS error and identify on which line and why it occurs
-- [ ] The script runs with `node index.js` without errors
-- [ ] The `output/latam-summary.json` file is generated correctly
-- [ ] The repo is on GitHub with this README
 
 ---
 
