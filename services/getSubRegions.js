@@ -1,27 +1,35 @@
 export const getSubRegions = async () => {
-  const subRegionsResponse = await fetch(
-    `https://restcountries.com/v3.1/all?fields=subregion`,
-  );
+  try {
+    const subRegionsResponse = await fetch(
+      `https://restcountries.com/v3.1/all?fields=subregion`,
+    );
 
-  const dataSubRegions = await subRegionsResponse.json();
+    const dataSubRegions = await subRegionsResponse.json();
 
-  const subRegions = [
-    ...new Set(dataSubRegions.map((country) => country.subregion)),
-  ].filter(
-    (subregion) =>
-      subregion !== undefined && subregion !== null && subregion !== "",
-  );
+    const subRegions = [
+      ...new Set(dataSubRegions.map((country) => country.subregion)),
+    ].filter(
+      (subregion) =>
+        subregion !== undefined && subregion !== null && subregion !== "",
+    );
 
-  return subRegions;
+    return subRegions;
+  } catch (error) {
+    console.error("Error fetching subregions:", error.message);
+    throw error;
+  }
 };
 
-export const enumerateSubRegions = async (subRegions) => {
-  const subRegions = await getSubRegions();
+export const enumerateSubRegions = (subRegions) => {
+  try {
+    const enumeratedSubRegions = subRegions.map((subRegion, index) => ({
+      id: index + 1,
+      name: subRegion,
+    }));
 
-  const enumeratedSubRegions = subRegions.map((subRegion, index) => ({
-    id: index + 1,
-    name: subRegion,
-  }));
-
-  return enumeratedSubRegions;
+    return enumeratedSubRegions;
+  } catch (error) {
+    console.error("Error enumerating subregions:", error.message);
+    throw error;
+  }
 };
