@@ -1,4 +1,4 @@
-import { getApiData } from "../services/api.js";
+//tratamiento de los datos de la API
 
 export const transformApiData = (apiData) => {
   const totalCountries = apiData.length;
