@@ -14,3 +14,14 @@ export const getSubRegions = async () => {
 
   return subRegions;
 };
+
+export const enumerateSubRegions = async (subRegions) => {
+  const subRegions = await getSubRegions();
+
+  const enumeratedSubRegions = subRegions.map((subRegion, index) => ({
+    id: index + 1,
+    name: subRegion,
+  }));
+
+  return enumeratedSubRegions;
+};
