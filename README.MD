@@ -1,70 +1,74 @@
-# 🌎 JS Fundamentals – LATAM API Project
+# js-fundamentals-latam-api
 
-This project is a Node.js script that consumes the [REST Countries API](https://restcountries.com/), filters Latin American countries, calculates their total population, and exports the results into a JSON file.
-
-It follows a common backend data flow:
-
-> fetch → parse → transform → export
+Node.js script that consumes the public [restcountries.com](https://restcountries.com) API, filters Latin American countries, calculates the total population, and exports the results to a JSON file.
 
 ---
 
-## 🚀 Features
+## What it does
 
-- Fetch data from an external API
-- Filter countries from Latin America
-- Calculate total population
-- Transform data into a clean structure
-- Export results to a JSON file
-
----
-
-## 🛠️ Tech Stack
-
-- Node.js
-- JavaScript (ES6+)
-- REST API
+1. Queries the REST Countries API filtering the American continent
+2. Filters only South American and Central American countries by subregion
+3. Maps each country to a clean object with name, capital, population, and ISO code
+4. Calculates total regional population using `.reduce()`
+5. Exports the result to `output/latam-summary.json`
 
 ---
 
-## 📦 Installation
+## Stack
 
-```bash
-git clone https://github.com/your-username/js-fundamentals-latam-api.git
-cd js-fundamentals-latam-api
-npm install
+- Node.js v20+ (no frameworks, plain JS)
+- API: [restcountries.com/v3.1](https://restcountries.com/v3.1/region/americas)
+- Native modules: `fs`, `path`
+
+---
+
+## Project structure
+
+```
+js-fundamentals-latam-api/
+├── index.js               # Entry point — orchestrates the full flow
+├── services/
+│   └── api.js             # fetch to restcountries.com
+├── utils/
+│   └── transform.js       # filter, map, reduce on the countries array
+├── output/
+│   └── latam-summary.json # Generated output (git-ignored)
+├── package.json
+└── README.md
 ```
 
 ---
 
-## ▶️ Usage
+## How to run
 
 ```bash
+# Clone the repo
+git clone https://github.com/[your-username]/js-fundamentals-latam-api.git
+cd js-fundamentals-latam-api
+
+# No external dependencies — plain Node
 node index.js
 ```
 
----
-
-## 📂 Project Structure
-
-```
-.
-├── index.js        # Main script
-├── services/       # API logic
-├── utils/          # Helper functions
-└── output.json     # Generated result
-```
+The `output/latam-summary.json` file is generated automatically.
 
 ---
 
-## 📊 Example Output
+## Output example
 
 ```json
 {
+  "region": "Latin America",
+  "totalCountries": 20,
   "totalPopulation": 652000000,
+  "generatedAt": "2026-05-05T18:00:00.000Z",
   "countries": [
     {
       "name": "Peru",
-      "population": 33000000
+      "capital": "Lima",
+      "population": 32971846,
+      "iso": "PE",
+      "subregion": "South America"
     }
   ]
 }
@@ -72,36 +76,21 @@ node index.js
 
 ---
 
-## 🎯 Learning Goals
+## JS concepts practiced
 
-This project was built to:
+| Concept | Where it's used |
+|---|---|
+| `async/await` + `fetch` | `services/api.js` |
+| `.filter()` | Filter only Latin American countries |
+| `.map()` | Transform raw API response to clean object |
+| `.reduce()` | Sum total population |
+| Destructuring | Extracting fields from country objects |
+| `try/catch/finally` | Error handling on fetch calls |
+| `JSON.stringify()` | Serialize the output |
+| `fs.writeFileSync` | Write the JSON file to disk |
+| Arrow functions | All array callbacks |
 
-- Strengthen JavaScript fundamentals
-- Practice working with APIs
-- Understand data transformation workflows
-- Prepare for SuiteScript development (NetSuite)
-
----
-
-## 🔄 Data Flow
-
-1. Fetch data from REST Countries API
-2. Parse JSON response
-3. Filter LATAM countries
-4. Transform data structure
-5. Export results to JSON file
 
 ---
-
-## 📌 Next Steps
-
-- Add error handling improvements
-- Refactor using classes (Week 2)
-- Adapt code to AMD pattern (SuiteScript style)
-
----
-
-## 👨‍💻 Author
 
 Piero Pérez  
-Backend Developer (Python → JavaScript → NetSuite)
