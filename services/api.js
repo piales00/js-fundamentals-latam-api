@@ -1,6 +1,4 @@
-import { selectedRegion } from "../index.js";
-
-export const getApiData = async () => {
+export const getApiData = async (selectedRegion) => {
   try {
     const response = await fetch(
       `https://restcountries.com/v3.1/subregion/${selectedRegion}?fields=name,population,subregion`,
