@@ -7,7 +7,13 @@ import {
 } from "./services/getSubRegions.js";
 
 //variables
-const subRegions = await enumerateSubRegions(await getSubRegions());
+try {
+  const subRegions = await enumerateSubRegions(await getSubRegions());
+} catch (error) {
+  console.error("Error initializing application:", error.message);
+  process.exit(1);
+}
+
 const rl = readline.createInterface({ input, output });
 
 //output
