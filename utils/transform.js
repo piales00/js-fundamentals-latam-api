@@ -1,5 +1,3 @@
-//tratamiento de los datos de la API
-
 export const transformApiData = (apiData) => {
   const totalCountries = apiData.length;
   const totalPopulation = apiData.reduce((population, country) => {
