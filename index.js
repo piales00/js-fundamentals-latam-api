@@ -1,4 +1,3 @@
-//imports
 import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import {
@@ -9,28 +8,43 @@ import { getApiData } from "./services/api.js";
 import { transformApiData } from "./utils/transform.js";
 import { exportJson } from "./utils/exportJson.js";
 import { sleep } from "./utils/sleep.js";
-//variables
+
 try {
   const subRegions = enumerateSubRegions(await getSubRegions());
   const rl = readline.createInterface({ input, output });
 
-  //output
   console.log("\n╔════════════════════════════════════════════════════════╗");
   console.log("║    Bienvenido a la API de JS Fundamentals Latam   ║");
   console.log("╚════════════════════════════════════════════════════════╝\n");
   await sleep(1500);
-  console.log("Selecciona un continente para conocer más detalles:\n");
+  console.log("Selecciona una región para conocer más detalles:\n");
   await sleep(1000);
   subRegions.forEach((subRegion) => {
     console.log(`${subRegion.id}. ${subRegion.name}`);
   });
 
-  const respuesta = await rl.question("Ingresa el número del continente: ");
+  let selected;
+
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    const respuesta = await rl.question("Ingresa el número de la región: ");
+    selected = subRegions.find(({ id }) => id === parseInt(respuesta));
+
+    if (selected) break;
+
+    const remaining = 3 - attempt;
+    if (remaining > 0) {
+      console.log(`Opción inválida. Te quedan ${remaining} intento(s).`);
+    }
+  }
+
   rl.close();
 
-  const selectedRegion = subRegions.find(
-    (subRegion) => subRegion.id === parseInt(respuesta),
-  ).name;
+  if (!selected) {
+    console.error("Máximo de intentos alcanzado. Saliendo.");
+    process.exit(1);
+  }
+
+  const selectedRegion = selected.name;
 
   const apiData = await getApiData(selectedRegion);
 
