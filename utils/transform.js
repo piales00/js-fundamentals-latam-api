@@ -3,9 +3,9 @@ export const transformApiData = (apiData) => {
   const totalPopulation = apiData.reduce((population, country) => {
     return population + country.population;
   }, 0);
-  const countries = apiData.map((countrie) => ({
-    name: countrie.name.common,
-    population: countrie.population,
+  const countries = apiData.map((country) => ({
+    name: country.name.common,
+    population: country.population,
   }));
 
   return {
