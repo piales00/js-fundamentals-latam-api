@@ -9,7 +9,7 @@ import { transformApiData } from "./utils/transform.js";
 import { exportJson } from "./utils/exportJson.js";
 import { sleep } from "./utils/sleep.js";
 
-try {
+const main = async () => {
   const subRegions = enumerateSubRegions(await getSubRegions());
   const rl = readline.createInterface({ input, output });
 
@@ -58,7 +58,9 @@ try {
   await sleep(1000);
   console.log(transformedData);
   console.log(`información guardada en output/${selectedRegion}_info.json\n`);
-} catch (error) {
+};
+
+main().catch((error) => {
   console.error("Error during the process:", error.message);
   process.exit(1);
-}
+});
