@@ -5,11 +5,10 @@ import {
   getSubRegions,
   enumerateSubRegions,
 } from "./services/getSubRegions.js";
-
 import { getApiData } from "./services/api.js";
-
 import { transformApiData } from "./utils/transform.js";
 import { exportJson } from "./utils/exportJson.js";
+import { sleep } from "./utils/sleep.js";
 //variables
 try {
   const subRegions = enumerateSubRegions(await getSubRegions());
@@ -19,7 +18,9 @@ try {
   console.log("\n╔════════════════════════════════════════════════════════╗");
   console.log("║    Bienvenido a la API de JS Fundamentals Latam   ║");
   console.log("╚════════════════════════════════════════════════════════╝\n");
+  await sleep(1500);
   console.log("Selecciona un continente para conocer más detalles:\n");
+  await sleep(1000);
   subRegions.forEach((subRegion) => {
     console.log(`${subRegion.id}. ${subRegion.name}`);
   });
@@ -40,33 +41,10 @@ try {
   console.log(
     `\nInformación sobre países en la subregión ${selectedRegion}:\n`,
   );
-
-  console.log(`información guardada en output/${selectedRegion}_info.json\n`);
-
+  await sleep(1000);
   console.log(transformedData);
+  console.log(`información guardada en output/${selectedRegion}_info.json\n`);
 } catch (error) {
-  console.error("Error fetching or enumerating subregions:", error.message);
+  console.error("Error during the process:", error.message);
   process.exit(1);
 }
-/*
-const fs = require("fs");
-
-// 1. Datos a guardar
-const datos = {
-  usuario: "juan",
-  edad: 30,
-  activo: true,
-};
-
-// 2. Convertir objeto a cadena JSON
-const jsonString = JSON.stringify(datos, null, 2); // '2' para formato legible
-
-// 3. Escribir archivo
-fs.writeFile("archivo.json", jsonString, (err) => {
-  if (err) {
-    console.error("Error al escribir el archivo:", err);
-  } else {
-    console.log("JSON guardado correctamente");
-  }
-});
-]*/
