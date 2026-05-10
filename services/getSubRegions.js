@@ -21,15 +21,10 @@ export const getSubRegions = async () => {
 };
 
 export const enumerateSubRegions = (subRegions) => {
-  try {
-    const enumeratedSubRegions = subRegions.map((subRegion, index) => ({
-      id: index + 1,
-      name: subRegion,
-    }));
+  const enumeratedSubRegions = subRegions.map((subRegion, index) => ({
+    id: index + 1,
+    name: subRegion,
+  }));
 
-    return enumeratedSubRegions;
-  } catch (error) {
-    console.error("Error enumerating subregions:", error.message);
-    throw error;
-  }
+  return enumeratedSubRegions;
 };
