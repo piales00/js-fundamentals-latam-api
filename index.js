@@ -13,9 +13,29 @@ const main = async () => {
   const subRegions = enumerateSubRegions(await getSubRegions());
   const rl = readline.createInterface({ input, output });
 
-  console.log("\n╔════════════════════════════════════════════════════════╗");
-  console.log("║    Bienvenido a la API de JS Fundamentals Latam   ║");
-  console.log("╚════════════════════════════════════════════════════════╝\n");
+  const reset = "\x1b[0m";
+  const cyan = "\x1b[36m";
+  const bold = "\x1b[1m";
+  const dim = "\x1b[2m";
+
+  console.log(
+    `\n${cyan}╔════════════════════════════════════════════════════════╗`,
+  );
+  console.log(
+    `║${reset}                                                        ${cyan}║`,
+  );
+  console.log(
+    `║${reset}      ${bold}Bienvenido a la API de JS Fundamentals Latam${reset}      ${cyan}║`,
+  );
+  console.log(
+    `║${reset}              ${dim}Explorá subregiones del mundo${reset}             ${cyan}║`,
+  );
+  console.log(
+    `║${reset}                                                        ${cyan}║`,
+  );
+  console.log(
+    `╚════════════════════════════════════════════════════════╝${reset}\n`,
+  );
   await sleep(1500);
   console.log("Selecciona una región para conocer más detalles:\n");
   await sleep(1000);
@@ -44,20 +64,26 @@ const main = async () => {
     process.exit(1);
   }
 
+  console.log("Cargando información, por favor espera...\n");
+  await sleep(2000);
   const selectedRegion = selected.name;
 
   const apiData = await getApiData(selectedRegion);
-
+  console.log("Transformando datos...\n");
+  await sleep(1000);
   const transformedData = transformApiData(apiData);
-
+  console.log("Exportando datos a JSON...\n");
+  await sleep(1000);
   await exportJson(transformedData, selectedRegion);
 
   console.log(
     `\nInformación sobre países en la subregión ${selectedRegion}:\n`,
   );
   await sleep(1000);
-  console.log(transformedData);
-  console.log(`información guardada en output/${selectedRegion}_info.json\n`);
+  console.log(`Población total: ${transformedData.totalPopulation}`);
+  console.log(`Número de países: ${transformedData.totalCountries}`);
+  console.table(transformedData.countries);
+  console.log(`Información guardada en output/${selectedRegion}_info.json\n`);
 };
 
 main().catch((error) => {
