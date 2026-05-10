@@ -4,8 +4,6 @@ export const getApiData = async (selectedRegion) => {
       `https://restcountries.com/v3.1/subregion/${selectedRegion}?fields=name,population,subregion`,
     );
 
-    console.log(response);
-
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
