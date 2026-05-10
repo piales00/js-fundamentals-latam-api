@@ -8,6 +8,8 @@ import {
 
 import { getApiData } from "./services/api.js";
 
+import { transformApiData } from "./utils/transform.js";
+import { exportJson } from "./utils/exportJson.js";
 //variables
 try {
   const subRegions = enumerateSubRegions(await getSubRegions());
@@ -31,11 +33,40 @@ try {
 
   const apiData = await getApiData(selectedRegion);
 
+  const transformedData = transformApiData(apiData);
+
+  await exportJson(transformedData, selectedRegion);
+
   console.log(
     `\nInformación sobre países en la subregión ${selectedRegion}:\n`,
   );
-  console.log(apiData);
+
+  console.log(`información guardada en output/${selectedRegion}_info.json\n`);
+
+  console.log(transformedData);
 } catch (error) {
   console.error("Error fetching or enumerating subregions:", error.message);
   process.exit(1);
 }
+/*
+const fs = require("fs");
+
+// 1. Datos a guardar
+const datos = {
+  usuario: "juan",
+  edad: 30,
+  activo: true,
+};
+
+// 2. Convertir objeto a cadena JSON
+const jsonString = JSON.stringify(datos, null, 2); // '2' para formato legible
+
+// 3. Escribir archivo
+fs.writeFile("archivo.json", jsonString, (err) => {
+  if (err) {
+    console.error("Error al escribir el archivo:", err);
+  } else {
+    console.log("JSON guardado correctamente");
+  }
+});
+]*/
