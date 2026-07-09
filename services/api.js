@@ -1,7 +1,7 @@
 export const getApiData = async (selectedRegion) => {
   try {
     const response = await fetch(
-      `https://restcountries.com/v3.1/subregion/${selectedRegion}?fields=name,population,subregion`,
+      `https://countries.dev/alpha/${selectedRegion}?fields=name,population,subregion`,
     );
 
     if (!response.ok) {
@@ -16,3 +16,10 @@ export const getApiData = async (selectedRegion) => {
     throw error;
   }
 };
+
+async function main(selectedRegion) {
+  const response = await fetch(`https://countries.dev/name/${selectedRegion}`);
+
+  console.log(response);
+}
+main("peru");

@@ -5,7 +5,7 @@ export const getSubRegions = async () => {
     );
 
     const dataSubRegions = await subRegionsResponse.json();
-
+    console.log(dataSubRegions);
     const subRegions = [
       ...new Set(dataSubRegions.map((country) => country.subregion)),
     ].filter(
