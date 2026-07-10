@@ -13,10 +13,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
+  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/piales00/js-fundamentals-latam-api/issues"
   },
-  "homepage": "https://github.com/piales00/js-fundamentals-latam-api#readme"
-  
+  "homepage": "https://github.com/piales00/js-fundamentals-latam-api#readme",
+  "dependencies": {
+    "amdefine": "^1.0.1"
+  }
 }

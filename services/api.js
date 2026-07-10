@@ -1,3 +1,22 @@
+//TODO: investigar api y terminar de hacer el fetch
+
+if (typeof define !== "function") {
+  var define = require("amdefine")(module);
+}
+
+define([], () => {
+  function getCountriesInfo(selectedRegion) {
+    return fetch(
+      `https://countries.dev/alpha/${selectedRegion}?fields=name,population,capital`,
+    ).then((response) => response.json());
+  }
+
+  getCountriesInfo("PE").then((data) => console.log(data));
+  return {
+    getCountriesInfo: getCountriesInfo,
+  };
+});
+/*
 export const getApiData = async (selectedRegion) => {
   try {
     const response = await fetch(
@@ -18,8 +37,11 @@ export const getApiData = async (selectedRegion) => {
 };
 
 async function main(selectedRegion) {
-  const response = await fetch(`https://countries.dev/name/${selectedRegion}`);
+  const country = await fetch(
+    `https://countries.dev/alpha/${selectedRegion}?fields=name,population,capital`,
+  ).then((r) => r.json());
 
-  console.log(response);
+  console.log(country);
 }
-main("peru");
+main("PE");
+*/

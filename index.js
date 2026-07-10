@@ -1,9 +1,6 @@
 import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
-import {
-  getSubRegions,
-  enumerateSubRegions,
-} from "./services/getSubRegions.js";
+import { getSubRegions, enumerateSubRegions } from "./services/getRegions.js";
 import { getApiData } from "./services/api.js";
 import { transformApiData } from "./utils/transform.js";
 import { exportJson } from "./utils/exportJson.js";
