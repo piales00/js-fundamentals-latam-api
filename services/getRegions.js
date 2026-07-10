@@ -13,6 +13,7 @@ define([], () => {
         return data;
       })
       .catch((error) => {
+        console.error(`Fallo al conseguir las regiones: ${error.message}`);
         throw error;
       });
   }
